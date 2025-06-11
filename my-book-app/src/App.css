@@ -1,0 +1,940 @@
+/* ===== Reset dan dasar styling ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* PERBAIKAN: Tambahkan scroll-behavior untuk smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  /* body sekarang hanya menjadi pusat untuk 'main-wrapper' */
+  display: flex;
+  justify-content: center; /* center horizontal */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #eee;
+  align-items: flex-start; /* default stretch, ini bisa diatur */
+  min-height: 100vh; /* supaya body cover full tinggi layar */
+  overflow-x: hidden; /* Tambahkan ini untuk mencegah scroll horizontal yang tidak diinginkan */
+}
+
+/* --- Kontainer utama untuk App dan Footer --- */
+/* Ini adalah wrapper yang membungkus app-container dan footer */
+.main-wrapper {
+  display: flex;
+  flex-direction: column; /* Susun vertikal: app-container di atas, footer di bawah */
+  min-height: 100vh; /* Pastikan wrapper mengisi tinggi viewport */
+  width: 100%; /* Pastikan wrapper mengisi lebar viewport */
+  max-width: 1200px; /* Batasi lebar maksimum untuk main-wrapper */
+  margin: 0 auto; /* Pusatkan main-wrapper */
+}
+
+/* ===== Kontainer utama aplikasi ===== */
+.app-container {
+  width: 100%;
+  padding: 20px; /* Padding default untuk desktop */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* untuk memusatkan item secara horizontal */
+  flex-grow: 1; /* Ini akan mendorong footer ke bawah, SANGAT PENTING! */
+}
+
+/* ===== Judul besar aplikasi ===== */
+.app-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 900;
+  color: #e50914; /* merah Netflix */
+  text-shadow: 0 0 8px #e50914aa;
+}
+
+/* ===== Kotak pencarian ===== */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Memastikan elemen di tengah secara vertikal */
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 600px; /* Lebar maksimum untuk desktop */
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  box-sizing: border-box;
+  margin-top: 1.5rem;
+}
+
+.search-input {
+  flex-grow: 1; /* Input akan mengisi ruang yang tersedia */
+  min-width: 150px; /* Pastikan input tidak terlalu kecil */
+  padding: 0 15px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  background-color: #333;
+  color: #fff;
+  height: 48px; /* Tetapkan tinggi konstan */
+  font-size: 1rem;
+  line-height: 1.2;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Animasi fokus input */
+}
+
+.search-input:focus {
+  border-color: #e50914;
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+}
+
+.search-button,
+.home-button {
+  height: 48px; /* Tetapkan tinggi konstan */
+  font-size: 1rem;
+  box-sizing: border-box;
+  line-height: 1.2;
+  white-space: nowrap; /* Mencegah teks tombol pecah baris */
+  flex-shrink: 0; /* Penting: Mencegah tombol mengecil dari ukuran aslinya */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animasi tombol */
+}
+
+.search-button {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 0 25px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+.search-button:hover {
+  background-color: #ad070f; /* Warna merah yang lebih gelap saat hover */
+  transform: scale(1.05); /* Efek zoom kecil saat hover */
+}
+
+.home-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.home-button:hover {
+  background-color: #555;
+  transform: scale(1.05); /* Efek zoom kecil saat hover */
+}
+
+/* ===== Genre Filter Container ===== */
+.genre-container {
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 20px; /* Tambahkan padding di sini agar tidak mepet tepi */
+  box-sizing: border-box;
+  text-align: left; /* PERBAIKAN: Rata kiri untuk teks dan elemen inline/inline-block */
+}
+
+.genre-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff; /* PERBAIKAN: Warna judul genre ke putih */
+  text-align: left; /* PERBAIKAN: Pastikan judul juga rata kiri */
+}
+
+.genre-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start; /* PERBAIKAN: Rata kiri untuk item flex */
+}
+
+.genre-button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease; /* Animasi tombol genre */
+  white-space: nowrap;
+}
+
+.genre-button:hover {
+  background-color: #555;
+  border-color: #e50914;
+  transform: translateY(-2px); /* Efek sedikit naik saat hover */
+}
+
+.genre-button.active {
+  background-color: #e50914;
+  border-color: #e50914;
+  font-weight: bold;
+  transform: scale(1.02); /* Efek kecil saat aktif */
+}
+
+/* ===== Grid untuk hasil pencarian ===== */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+  align-items: stretch;
+  width: 100%; /* Pastikan grid mengisi lebar kontainer */
+  padding: 0 20px; /* Tambahkan padding di sini */
+  box-sizing: border-box;
+  /* PERBAIKAN: Efek fade-in default untuk item */
+  opacity: 0; /* Mulai dengan transparan */
+  transform: translateY(20px); /* Mulai dari sedikit bawah */
+  animation: fadeInFromBottom 0.5s ease-out forwards; /* Animasi default */
+  animation-delay: 0.1s; /* Sedikit delay agar terlihat lebih halus */
+}
+
+/* KEYFRAMES untuk animasi fade-in hasil pencarian */
+@keyframes fadeInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Jika Anda ingin animasi ini hanya terjadi saat ada perubahan (perlu JS) */
+.results-grid.show-results {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInFromBottom 0.5s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+/* ===== Kartu buku individual ===== */
+.book-card {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #000000aa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi kartu buku */
+}
+
+.book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px #e50914aa;
+  z-index: 10;
+}
+
+.book-thumbnail {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-bottom: 1px solid #444;
+}
+
+.book-info {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: auto;
+}
+
+.book-title {
+  font-size: 1.3rem;
+  margin: 0 0 0 0;
+  font-weight: 700;
+}
+
+.book-authors {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 1px;
+}
+
+.book-description {
+  flex-grow: 1;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  height: calc(1.3em * 4);
+}
+
+.book-score {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e50914;
+  margin-top: 10px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ===== Pesan teks ketika belum ada hasil pencarian ===== */
+.empty-text {
+  color: #777;
+  font-style: italic;
+  grid-column: 1/-1;
+  text-align: center;
+  /* Animasi fade-in untuk pesan */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* KEYFRAMES untuk fade-in umum */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== Modal untuk detail buku ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* Memungkinkan scroll jika konten terlalu panjang */
+  padding: 20px; /* Memberi jarak minimal 20px dari tepi layar */
+  box-sizing: border-box; /* Pastikan padding dihitung dalam total dimensi */
+  /* Animasi fade-in overlay */
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.modal-content {
+  background-color: #181818;
+  color: white;
+  width: 70%; /* Default untuk desktop */
+  max-width: 900px;
+  max-height: 85vh; /* Default untuk desktop */
+  border-radius: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* PERBAIKAN: Hapus padding di sini agar gambar hero bisa penuh */
+  /* Animasi pop-up modal */
+  transform: scale(0.9);
+  opacity: 0;
+  animation: modalPopUp 0.3s ease-out forwards;
+  animation-delay: 0.1s; /* Sedikit delay setelah overlay muncul */
+}
+
+@keyframes modalPopUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animasi tombol close */
+}
+
+.modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-hero {
+  width: 100%;
+  aspect-ratio: 4 / 2; /* Default untuk desktop, rasio lebar */
+  position: relative;
+  overflow: hidden;
+  min-height: 150px; /* Minimal tinggi hero, agar ada ruang meskipun gambar belum termuat */
+}
+
+.modal-hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Penting: Pastikan gambar mengisi seluruh area hero (cropping jika perlu) */
+  background-color: #333; /* Fallback background jika gambar tidak termuat */
+}
+
+.modal-details {
+  padding: 2rem; /* Ini padding untuk konten teks di desktop */
+}
+
+.modal-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  color: #d2d2d2;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.modal-meta span {
+  display: flex;
+  align-items: center;
+}
+
+.modal-meta span:not(:last-child)::after {
+  content: "•";
+  margin-left: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* PERBAIKAN: Default untuk desktop: rata kiri */
+}
+
+.modal-play-button {
+  background-color: white; /* Default untuk Read Now */
+  color: black;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modal-play-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.02);
+}
+
+.modal-watchlist-button {
+  background-color: #383838; /* PERBAIKAN: Warna abu-abu gelap */
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modal-watchlist-button:hover {
+  background-color: rgba(36, 36, 36, 0.7); /* PERBAIKAN: Sedikit lebih gelap saat hover */
+  transform: scale(1.02);
+}
+
+.modal-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.modal-cast {
+  color: #d2d2d2;
+  font-size: 0.9rem;
+}
+
+.modal-cast p {
+  margin: 0.5rem 0;
+}
+
+.modal-close-minimalist {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease; /* Animasi tombol close minimalist */
+}
+
+.modal-close-minimalist:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.modal-close-minimalist svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== Kontainer untuk pesan error, suggestion, dll ===== */
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  padding: 0 20px; /* Tambahkan padding di sini */
+  box-sizing: border-box;
+  width: 100%; /* Pastikan mengisi lebar container */
+  max-width: 1200px; /* Sesuaikan dengan app-container */
+  opacity: 0; /* Mulai dengan transparan */
+  animation: fadeIn 0.5s ease-out forwards; /* Animasi pesan */
+}
+
+.suggestion-text {
+  color: #fff;
+  font-weight: 600;
+}
+
+.error-text {
+  color: rgb(85, 85, 85);
+}
+
+.empty-text {
+  color: #777;
+}
+
+/* ===== Autocomplete Styles ===== */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.autocomplete-input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.autocomplete-input:focus {
+  border-color: #e50914;
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  border: 1px solid #444;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  /* Animasi fade-in autocomplete */
+  opacity: 0;
+  transform: translateY(-5px);
+  animation: fadeInTranslateY 0.2s ease-out forwards;
+}
+
+@keyframes fadeInTranslateY {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.autocomplete-item {
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.autocomplete-item:hover {
+  background-color: #444;
+}
+
+.autocomplete-item:active,
+.autocomplete-item[aria-selected="true"] {
+  background-color: #e50914;
+  color: white;
+}
+
+/* Scrollbar styling */
+.autocomplete-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.autocomplete-list::-webkit-scrollbar-track {
+  background: #222;
+}
+
+.autocomplete-list::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.autocomplete-list::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+---
+
+/* --- END BAR / FOOTER STYLES --- */
+.end-bar {
+  background-color: #ff0000; /* **PERBAIKAN: Warna latar belakang merah untuk seluruh footer** */
+  color: #a0a0a0; /* Warna teks abu-abu terang */
+  padding: 40px 0; /* Tetap tanpa padding horizontal di sini */
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem; /* Jarak dari konten di atasnya */
+  border-top: 1px solid #ff0000; /* **PERBAIKAN: Garis tipis di atas footer juga merah agar menyatu** */
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.end-bar-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 50px;
+  text-align: left;
+  background-color: #1a1a1a;
+}
+
+.end-bar-section {
+  flex: 1 1 280px;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.end-bar-section h3 {
+  color: #e50914; /* Tetap merah Netflix untuk judul section di dalam footer */
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.end-bar-section p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.end-bar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.end-bar-section ul li {
+  margin-bottom: 8px;
+}
+
+.end-bar-section ul li a {
+  color: #a0a0a0; /* Tetap abu-abu terang untuk tautan */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.end-bar-section ul li a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.end-bar-section ul li p {
+  margin: 0; /* Hapus margin default pada tag <p> */
+  line-height: 1.2; /* Sesuaikan line-height agar lebih rapat */
+}
+
+.social-links a {
+  display: inline-block;
+  color: #a0a0a0; /* Tetap abu-abu terang untuk ikon sosial */
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.end-bar-bottom {
+  background-color: #000000; /* Background hitam untuk copyright, tidak berubah */
+  color: #ffffff; /* Tulisan putih untuk copyright, tidak berubah */
+  padding: 1px 1px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* --- Responsive untuk END BAR (Penyesuaian Anggota Tim Mobile) --- */
+@media (max-width: 768px) {
+  .end-bar {
+    margin-top: 2rem;
+    padding: 30px 0;
+  }
+
+  .end-bar-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 0 20px;
+  }
+
+  .end-bar-section {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .end-bar-section ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 15px;
+    margin-bottom: 10px;
+  }
+
+  .end-bar-section ul li {
+    margin-bottom: 0;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .end-bar-bottom {
+    font-size: 0.75rem;
+    padding: 8px 15px;
+  }
+}
+
+/* ==================Responsive==================*/
+/* ### Untuk layar handphone (hingga 480px) */
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+
+  .app-container {
+    padding: 0 25px; /* Misalnya, 15px di kiri-kanan */
+  }
+
+  .app-title {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .search-container {
+    margin-top: 3rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+    height: auto;
+    min-height: auto;
+    max-height: auto;
+    padding: 0;
+  }
+  .search-input {
+    height: 48px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    padding: 0 15px;
+  }
+  .search-button {
+    width: 100%;
+    height: 48px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    padding: 0 25px;
+  }
+  .home-button {
+    display: none;
+  }
+
+  .autocomplete-container {
+    width: 100%;
+  }
+
+  .autocomplete-input {
+    border-radius: 4px;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .book-card {
+    height: auto;
+  }
+
+  .book-thumbnail {
+    height: 250px;
+  }
+
+  .book-title {
+    font-size: 1.2rem;
+  }
+
+  .book-authors {
+    font-size: 0.8rem;
+  }
+
+  .book-description {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 4;
+    height: auto;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: none;
+    max-height: 85vh;
+    padding: 0;
+  }
+
+  .modal-hero {
+    aspect-ratio: 16 / 9;
+    max-height: 180px;
+  }
+
+  .modal-details {
+    padding: 1.2rem;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
+  .modal-play-button,
+  .modal-watchlist-button {
+    flex: 1 1 calc(50% - 0.4rem);
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+    min-width: unset;
+  }
+
+  .modal-close-minimalist {
+    top: 10px;
+    right: 10px;
+    padding: 20px;
+  }
+
+  .modal-close-minimalist svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .modal-meta span:not(:last-child)::after {
+    content: none;
+  }
+
+  .message-container {
+    font-size: 0.9rem;
+    min-height: 40px;
+    padding: 0;
+  }
+
+  .genre-container {
+    padding: 0;
+    text-align: center;
+  }
+  .genre-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+  }
+  .genre-grid {
+    justify-content: center;
+  }
+  .genre-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
