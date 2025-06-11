@@ -4,6 +4,8 @@ import BookCard from "./components/BookCard.jsx"; // Ditambahkan .jsx
 import BookModal from "./components/BookModal.jsx"; // Ditambahkan .jsx
 import { SearchAutocomplete } from "./components/SearchAutoComplete.jsx"; // Ditambahkan .jsx
 
+const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [books, setBooks] = useState([]); // Hasil pencarian utama
@@ -25,7 +27,7 @@ export default function App() {
     async function fetchDefault() {
       try {
         // Menggunakan template literal untuk URL
-        const response = await fetch(`${window.location.protocol}//${window.location.hostname}:5000/api/default`);
+        const response = await fetch(`${BACKEND_BASE_URL}/api/default`);
         if (!response.ok) throw new Error("Failed to fetch default books");
         const data = await response.json();
         setDefaultBooks(data.results || []);
@@ -106,7 +108,7 @@ export default function App() {
 
     try {
       // Menggunakan template literal untuk URL
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:5000/api/recommend`, {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/recommend`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: trimmedQuery }),
@@ -182,7 +184,7 @@ export default function App() {
     try {
       // Panggil API recommend untuk mendapatkan detail buku lengkap
       // Menggunakan template literal untuk URL
-      const response = await fetch(`${window.location.protocol}//${window.location.hostname}:5000/api/recommend`, {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/recommend`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: suggestionTitle }),
