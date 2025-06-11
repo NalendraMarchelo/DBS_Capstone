@@ -311,7 +311,7 @@ export default function App() {
           <h1 className="app-title">AlgoReads</h1>
 
           <div className="search-container">
-            <SearchAutocomplete value={searchQuery} onChange={setSearchQuery} onSubmit={handleSearch} onSuggestionClick={handleSuggestionClick} className="search-input" ariaLabel="Search books" spellCheck={false} />
+            <SearchAutocomplete value={searchQuery} onChange={setSearchQuery} onSubmit={handleSearch} onSuggestionClick={handleSuggestionClick} backendBaseUrl={BACKEND_BASE_URL} className="search-input" ariaLabel="Search books" spellCheck={false} />
 
             <button onClick={handleSearch} className="search-button" disabled={isLoading}>
               {isLoading ? "Searching..." : "Search"}
