@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export function SearchAutocomplete({ value, onChange, onSubmit, onSuggestionClick, className = "", ariaLabel = "Search books", spellCheck = false }) {
+export function SearchAutocomplete({ value, onChange, onSubmit, onSuggestionClick, className = "", ariaLabel = "Search books", spellCheck = false, backendBaseUrl }) {
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -18,9 +18,9 @@ export function SearchAutocomplete({ value, onChange, onSubmit, onSuggestionClic
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
     debounceTimeout.current = setTimeout(() => {
-      const baseUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
-
-      fetch(`${baseUrl}/api/suggestions?query=${encodeURIComponent(value)}`)
+      // const baseUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
+      const url = `${backendBaseUrl}/api/suggestions?query=${encodeURIComponent(value)}`;
+      fetch(url)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch suggestions");
           return res.json();
@@ -44,7 +44,7 @@ export function SearchAutocomplete({ value, onChange, onSubmit, onSuggestionClic
     }, 300);
 
     return () => clearTimeout(debounceTimeout.current);
-  }, [value]);
+  }, [value, backendBaseUrl]);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
