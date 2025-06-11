@@ -6,3 +6,4 @@ joblib
 deep-translator
 datetime
 requests
+gunicorn
